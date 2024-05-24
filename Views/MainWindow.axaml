@@ -7,6 +7,101 @@
         xmlns:vm="using:Hospital.ViewModels"
 		x:DataType="vm:MainWindowViewModel"
         Icon="/Assets/icon.png"
-        Title="Самарская городская поликлиника № 14">
-  Welcome to Avalonia!
+        Title="Самарская городская поликлиника № 14"
+		xmlns:local="clr-namespace:Session2v2.Services">
+
+	<Window.Resources>
+		<local:ImageConverter x:Key="ImageConverter"/>
+	</Window.Resources>
+
+	<Window.Styles>
+		<StyleInclude Source="/Styles/MainWindowStyles.axaml"/>
+	</Window.Styles>
+
+	<StackPanel >
+
+		<Grid ColumnDefinitions="*, *">
+
+			<StackPanel Orientation="Horizontal" Height="100" Grid.Column="0" >
+				<StackPanel Orientation="Vertical">
+					<TextBlock Text="Производитель:" Margin="10 10 10 0" FontSize="16"/>
+					<ComboBox ItemsSource="{Binding Manufacturers}" VerticalAlignment="Center" Padding="0" Width="225" Height="40" SelectedItem="{Binding SelectedManufacturer}" SelectedValueBinding="{Binding Id}" Margin="10" ToolTip.Tip="Фильтрация по производителю">
+						<ComboBox.ItemTemplate>
+							<DataTemplate>
+								<TextBlock FontSize="16" Text="{Binding Name}" />
+							</DataTemplate>
+						</ComboBox.ItemTemplate>
+					</ComboBox>
+				</StackPanel>
+
+				<StackPanel Orientation="Vertical">
+					<TextBlock Text="Поставщик:" Margin="10 10 10 0" FontSize="16"/>
+					<ComboBox ItemsSource="{Binding DrugProviders}" VerticalAlignment="Center" Width="175" Padding="0" Margin="10" Height="40" SelectedItem="{Binding SelectedDrugProvider}" SelectedValueBinding="{Binding Id}" ToolTip.Tip="Фильтрация по поставщику">
+						<ComboBox.ItemTemplate>
+							<DataTemplate>
+								<TextBlock FontSize="16" Text="{Binding Name}" />
+							</DataTemplate>
+						</ComboBox.ItemTemplate>
+					</ComboBox>
+				</StackPanel>
+
+				<StackPanel Orientation="Vertical">
+					<TextBlock Text="Тип лекарства:" Margin="10 10 10 0" FontSize="16"/>
+					<ComboBox ItemsSource="{Binding Types}" VerticalAlignment="Center" Width="250" Padding="0" Height="40" SelectedItem="{Binding SelectedType}" SelectedValueBinding="{Binding Id}" Margin="10" ToolTip.Tip="Фильтрация по типу лекарства">
+						<ComboBox.ItemTemplate>
+							<DataTemplate>
+								<TextBlock FontSize="16" Text="{Binding Name}" />
+							</DataTemplate>
+						</ComboBox.ItemTemplate>
+					</ComboBox>
+				</StackPanel>
+
+				<!--<StackPanel Orientation="Horizontal">
+					<StackPanel Orientation="Vertical" VerticalAlignment="Center" Margin=" 0 -10 0 0">
+						<TextBlock Text="Поиск по названию препарата:" Margin="10 10 10 0" FontSize="16"/>
+						<TextBox Height="40" Margin="10" Padding="10 0 0 0" IsEnabled="True" VerticalContentAlignment="Center" FontSize="16" Width="100" Text="{Binding PassportNumber}"/>
+					</StackPanel>
+					<Button Content="Найти" Margin="10 20 0 0" Command="{Binding FindByPassportNumber}" IsEnabled="{Binding IsPassportSearchEnable}" Height="40" Padding="10"/>
+
+				</StackPanel>
+
+				<Button Content="Создать отчет" Click="OpenReportWindow" Height="40" Padding="10" Margin="10 20 10 0"/>-->
+
+				<TextBlock Text="{Binding Message}" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="IndianRed" Margin="10 20 10 0"/>
+
+			</StackPanel>
+
+			<!--<Button Command="{Binding ChangeTheme}" Height="50" Width="50" Background="Transparent" Grid.Column="1" CornerRadius="100" HorizontalAlignment="Right" Margin="10 20 10 10" VerticalAlignment="Center">
+				<Image Source="{Binding ChangeThemeButtonIcon}" Margin="0" Height="50" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+			</Button>-->
+		</Grid>
+
+		<Grid ColumnDefinitions="200, 300, 1600" Height="750" MinHeight="560" HorizontalAlignment="Left" MaxWidth="1040">
+			<ListBox ItemsSource="{Binding FilteredDrugs}" SelectedItem="{Binding SelectedDrug}" SelectionMode="Single" Width="200" Grid.Column="0" HorizontalAlignment="Left">
+				<ListBox.ItemTemplate>
+					<DataTemplate>
+						<TextBlock Text="{Binding Name}"/>
+					</DataTemplate>
+				</ListBox.ItemTemplate>
+			</ListBox>
+
+			<Image Source="{Binding SelectedDrug.Photo, Converter={StaticResource ImageConverter}}" Grid.Column="1" MaxHeight="300" VerticalAlignment="Top" HorizontalAlignment="Left"/>
+
+			<Grid ColumnDefinitions="*, *, *, *" RowDefinitions="*, *, *, *, *" Grid.Column="2" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="0 20 0 0" IsVisible="{Binding IsFilteredListNotNull}">
+				<TextBlock Text="Наименование: " Grid.Column="0" Grid.Row="0" />
+				<TextBlock Text="Производитель: " Grid.Column="0" Grid.Row="1"/>
+				<TextBlock Text="Поставщик: " Grid.Column="0" Grid.Row="2"/>
+				<TextBlock Text="Количество: " Grid.Column="0" Grid.Row="3"/>
+				<TextBlock Text="Тип: " Grid.Column="0" Grid.Row="4"/>
+
+				<TextBlock Text="{Binding SelectedDrug.Name}" Grid.Column="1" Grid.Row="0" />
+				<TextBlock Text="{Binding SelectedDrug.Manufacturer.Name}" Grid.Column="1" Grid.Row="1"/>
+				<TextBlock Text="{Binding SelectedDrug.DrugProvider.Name}" Grid.Column="1" Grid.Row="2"/>
+				<TextBlock Text="{Binding SelectedDrug.Count}" Grid.Column="1" Grid.Row="3"/>
+				<TextBlock Text="{Binding SelectedDrug.Type.Name}" Grid.Column="1" Grid.Row="4"/>
+
+				<!--<Button Content="Изменить" FontSize="20" Grid.Column="3" Grid.Row="8" Margin="10 0 20 0" ToolTip.Tip="Изменить статус заявки"/>-->
+			</Grid>
+		</Grid>
+	</StackPanel>
 </Window>

@@ -18,6 +18,9 @@ build_property.ProjectDir = C:\Users\Home\Desktop\vsProjects\Hospital\
 [C:/Users/Home/Desktop/vsProjects/Hospital/App.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 
+[C:/Users/Home/Desktop/vsProjects/Hospital/Styles/MainWindowStyles.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
 [C:/Users/Home/Desktop/vsProjects/Hospital/Views/AuthorizeWindow.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 

@@ -15,6 +15,7 @@
 
   <ItemGroup>
     <None Remove="Assets\icon.png" />
+    <None Remove="Assets\no-photo.png" />
   </ItemGroup>
 
 
