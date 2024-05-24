@@ -78,8 +78,8 @@ namespace Hospital.ViewModels
             set { _selectedType = this.RaiseAndSetIfChanged(ref _selectedType, value); Filter(); }
         }
 
-        
-        private string _message;
+
+        private string _message = null!;
 
         public string Message
         {
@@ -96,11 +96,37 @@ namespace Hospital.ViewModels
         }
 
 
+        private string _searchingDrug;
+
+        public string SearchingDrug
+        {
+            get { return _searchingDrug; }
+            set { _searchingDrug = this.RaiseAndSetIfChanged(ref _searchingDrug, value); }
+        }
+
+
         public MainWindowViewModel()
         {
             GetContent();
+            this.WhenAnyValue(x => x.SearchingDrug).Subscribe(_ => Find());
         }
 
+        private void Find()
+        {
+            if (!string.IsNullOrEmpty(SearchingDrug))
+            {
+                FilteredDrugs = new ObservableCollection<DrugDTO>(Drugs.Where(d => d.Name.ToLower().StartsWith(SearchingDrug.ToLower())).ToList());
+                if (FilteredDrugs.Count == 0 || FilteredDrugs == null)
+                {
+                    IsFilteredListNotNull = false;
+                    Message = "Не найдено";
+                }
+            }
+            else
+            {
+                Filter();
+            }
+        }
         private void GetContent()
         {
             Drugs = DBCall.GetDrugs();

@@ -56,16 +56,12 @@
 					</ComboBox>
 				</StackPanel>
 
-				<!--<StackPanel Orientation="Horizontal">
-					<StackPanel Orientation="Vertical" VerticalAlignment="Center" Margin=" 0 -10 0 0">
-						<TextBlock Text="Поиск по названию препарата:" Margin="10 10 10 0" FontSize="16"/>
-						<TextBox Height="40" Margin="10" Padding="10 0 0 0" IsEnabled="True" VerticalContentAlignment="Center" FontSize="16" Width="100" Text="{Binding PassportNumber}"/>
-					</StackPanel>
-					<Button Content="Найти" Margin="10 20 0 0" Command="{Binding FindByPassportNumber}" IsEnabled="{Binding IsPassportSearchEnable}" Height="40" Padding="10"/>
-
+				<StackPanel Orientation="Vertical" VerticalAlignment="Center" Margin=" 0 -10 0 0">
+					<TextBlock Text="Поиск по названию:" Margin="10 10 10 0" FontSize="16"/>
+					<TextBox Height="40" Margin="10" Padding="10 0 0 0" IsEnabled="True" HorizontalAlignment="Left" VerticalContentAlignment="Center" FontSize="16" Width="200" Text="{Binding SearchingDrug}"/>
 				</StackPanel>
 
-				<Button Content="Создать отчет" Click="OpenReportWindow" Height="40" Padding="10" Margin="10 20 10 0"/>-->
+				<!--<Button Content="Создать отчет" Click="OpenReportWindow" Height="40" Padding="10" Margin="10 20 10 0"/>-->
 
 				<TextBlock Text="{Binding Message}" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="IndianRed" Margin="10 20 10 0"/>
 
