@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Reactive.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
@@ -18,7 +19,7 @@ namespace Hospital.ViewModels
         public List<DrugDTO> Drugs { get; set; } = null!;
 
 
-        private ObservableCollection<DrugDTO> _filteredDrugs = null!;
+        private ObservableCollection<DrugDTO> _filteredDrugs;
 
         public ObservableCollection<DrugDTO> FilteredDrugs
         {
@@ -104,6 +105,15 @@ namespace Hospital.ViewModels
             set { _searchingDrug = this.RaiseAndSetIfChanged(ref _searchingDrug, value); }
         }
 
+        public List<string> SortValues { get; set; }
+
+        private string _selectedSortValue;
+
+        public string SelectedSortValue
+        {
+            get { return _selectedSortValue; }
+            set { _selectedSortValue = this.RaiseAndSetIfChanged(ref _selectedSortValue, value); Sort(); }
+        }
 
         public MainWindowViewModel()
         {
@@ -121,18 +131,31 @@ namespace Hospital.ViewModels
                     IsFilteredListNotNull = false;
                     Message = "Не найдено";
                 }
+                else
+                {
+                    SelectedDrug = FilteredDrugs[0];
+                }
             }
             else
             {
                 Filter();
             }
         }
+        
         private void GetContent()
         {
             Drugs = DBCall.GetDrugs();
 
             FilteredDrugs = new ObservableCollection<DrugDTO>(Drugs);
             SelectedDrug = FilteredDrugs[0];
+
+            SortValues = new List<string>
+            {
+                "от А до Я",
+                "от Я до А",
+                "количество: от меньшего к большему",
+                "количество: от большего к меньшему",
+            };
 
             Manufacturers.AddRange(DBCall.GetManufacturers());
             SelectedManufacturer = Manufacturers[0];
@@ -142,6 +165,8 @@ namespace Hospital.ViewModels
 
             Types.AddRange(DBCall.GetTypes());
             SelectedType = Types[0];
+
+            SelectedSortValue = SortValues[0];
 
         }
 
@@ -169,15 +194,36 @@ namespace Hospital.ViewModels
 
             if (FilteredDrugs.Any())
             {
+                Sort();
                 Message = "";
                 IsFilteredListNotNull = true;
-                SelectedDrug = FilteredDrugs[0];
             }
             else
             {
                 IsFilteredListNotNull = false;
                 Message = "Нет лекарств по выбранным категориям";
             }
+        }
+    
+        private void Sort()
+        {
+            if (SelectedSortValue == SortValues[0])
+            {
+                FilteredDrugs = new ObservableCollection<DrugDTO>(FilteredDrugs.OrderBy(d => d.Name).ToList());
+            }
+            else if (SelectedSortValue == SortValues[1])
+            {
+                FilteredDrugs = new ObservableCollection<DrugDTO>(FilteredDrugs.OrderByDescending(d => d.Name).ToList());
+            }
+            else if (SelectedSortValue == SortValues[2])
+            {
+                FilteredDrugs = new ObservableCollection<DrugDTO>(FilteredDrugs.OrderBy(d => d.Count).ToList());
+            }
+            else
+            {
+                FilteredDrugs = new ObservableCollection<DrugDTO>(FilteredDrugs.OrderByDescending(d => d.Count).ToList());
+            }
+            SelectedDrug = FilteredDrugs[0];
         }
     }
 }
