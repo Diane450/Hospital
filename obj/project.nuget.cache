@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "6CKbGZ5isCzQQmYlNUEnNQnX3h901/wB+R1TLUZfGon/MXs2dRPFQudX4RPgN0+TT+XbOFv6OOFbvYLOZ/UgkQ==",
+  "dgSpecHash": "eTKFHX+JEukXhclRaChtjXl+NBOFzkwCQwkDhFhXmaE7LgzQgysRMpUOjDBmshSN2lh0Xa+wcJtd8pAUP6e9vg==",
   "success": true,
   "projectFilePath": "C:\\Users\\Home\\Desktop\\vsProjects\\Hospital\\Hospital.csproj",
   "expectedPackageFiles": [
@@ -22,6 +22,7 @@
     "C:\\Users\\Home\\.nuget\\packages\\avalonia.win32\\11.0.6\\avalonia.win32.11.0.6.nupkg.sha512",
     "C:\\Users\\Home\\.nuget\\packages\\avalonia.x11\\11.0.6\\avalonia.x11.11.0.6.nupkg.sha512",
     "C:\\Users\\Home\\.nuget\\packages\\bouncycastle\\1.8.9\\bouncycastle.1.8.9.nupkg.sha512",
+    "C:\\Users\\Home\\.nuget\\packages\\citrus.avalonia\\2.1.1\\citrus.avalonia.2.1.1.nupkg.sha512",
     "C:\\Users\\Home\\.nuget\\packages\\dynamicdata\\7.9.5\\dynamicdata.7.9.5.nupkg.sha512",
     "C:\\Users\\Home\\.nuget\\packages\\harfbuzzsharp\\7.3.0\\harfbuzzsharp.7.3.0.nupkg.sha512",
     "C:\\Users\\Home\\.nuget\\packages\\harfbuzzsharp.nativeassets.linux\\7.3.0\\harfbuzzsharp.nativeassets.linux.7.3.0.nupkg.sha512",

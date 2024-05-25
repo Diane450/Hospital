@@ -14,6 +14,7 @@
           "Avalonia.Fonts.Inter": "11.0.6",
           "Avalonia.ReactiveUI": "11.0.6",
           "Avalonia.Themes.Fluent": "11.0.6",
+          "Citrus.Avalonia": "2.1.1",
           "Microsoft.EntityFrameworkCore.Tools": "7.0.19",
           "PdfiumViewer": "2.13.0",
           "Pomelo.EntityFrameworkCore.MySql": "7.0.0",
@@ -281,6 +282,18 @@
           "lib/BouncyCastle.Crypto.dll": {
             "assemblyVersion": "1.8.9.0",
             "fileVersion": "1.8.20343.1"
+          }
+        }
+      },
+      "Citrus.Avalonia/2.1.1": {
+        "dependencies": {
+          "Avalonia": "11.0.6",
+          "Avalonia.Themes.Simple": "11.0.6"
+        },
+        "runtime": {
+          "lib/netstandard2.0/Citrus.Avalonia.dll": {
+            "assemblyVersion": "2.1.0.0",
+            "fileVersion": "2.1.1.52152"
           }
         }
       },
@@ -1355,6 +1368,13 @@
       "sha512": "sha512-axnBgvdD5n+FnEG6efk/tfKuMFru7R/EoISH9zjh319yb3HD24TEHSAbNN/lTRT2ulOGRxDgOsCjkuk08iwWPg==",
       "path": "bouncycastle/1.8.9",
       "hashPath": "bouncycastle.1.8.9.nupkg.sha512"
+    },
+    "Citrus.Avalonia/2.1.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-31vu7lNYr5v/fmeraM+YhRPlxGOBhXxTQnDZA+FiAZlp511PvprCmwy/Z52nqJxrfqbEd1Bz0Beb6bSZExSQKg==",
+      "path": "citrus.avalonia/2.1.1",
+      "hashPath": "citrus.avalonia.2.1.1.nupkg.sha512"
     },
     "DynamicData/7.9.5": {
       "type": "package",

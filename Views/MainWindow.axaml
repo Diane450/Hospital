@@ -82,7 +82,7 @@
 			</ListBox>
 			<TextBlock Text="{Binding Message}" Foreground="IndianRed" HorizontalAlignment="Center"/>
 			<Image Source="{Binding SelectedDrug.Photo, Converter={StaticResource ImageConverter}}" Grid.Column="1" MaxHeight="300" VerticalAlignment="Top" HorizontalAlignment="Left"/>
-			<Grid ColumnDefinitions="*, *, *, *" RowDefinitions="*, *, *, *, *, *, *" Grid.Column="2" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="0 20 0 0" IsVisible="{Binding IsFilteredListNotNull}">
+			<Grid ColumnDefinitions="*, *, *, *" RowDefinitions="*, *, *, *, *, *, *" Grid.Column="2" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="40 20 0 0" IsVisible="{Binding IsFilteredListNotNull}">
 				<TextBlock Text="Наименование: " Grid.Column="0" Grid.Row="0" />
 				<TextBlock Text="Производитель: " Grid.Column="0" Grid.Row="1"/>
 				<TextBlock Text="Поставщик: " Grid.Column="0" Grid.Row="2"/>

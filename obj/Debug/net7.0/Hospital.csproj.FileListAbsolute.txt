@@ -157,3 +157,4 @@ C:\Users\Home\Desktop\vsProjects\Hospital\bin\Debug\net7.0\BouncyCastle.Crypto.d
 C:\Users\Home\Desktop\vsProjects\Hospital\bin\Debug\net7.0\itextsharp.dll
 C:\Users\Home\Desktop\vsProjects\Hospital\bin\Debug\net7.0\PdfiumViewer.dll
 C:\Users\Home\Desktop\vsProjects\Hospital\bin\Debug\net7.0\nl\PdfiumViewer.resources.dll
+C:\Users\Home\Desktop\vsProjects\Hospital\bin\Debug\net7.0\Citrus.Avalonia.dll
