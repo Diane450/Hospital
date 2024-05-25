@@ -72,10 +72,6 @@
 				<TextBlock Text="{Binding Message}" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="IndianRed" Margin="10 20 10 0"/>
 
 			</StackPanel>
-
-			<!--<Button Command="{Binding ChangeTheme}" Height="50" Width="50" Background="Transparent" Grid.Column="1" CornerRadius="100" HorizontalAlignment="Right" Margin="10 20 10 10" VerticalAlignment="Center">
-				<Image Source="{Binding ChangeThemeButtonIcon}" Margin="0" Height="50" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-			</Button>-->
 		</Grid>
 
 		<Grid ColumnDefinitions="200, 300, 1600" Height="750" MinHeight="560" HorizontalAlignment="Left" MaxWidth="1040">
@@ -102,7 +98,7 @@
 				<TextBlock Text="{Binding SelectedDrug.Count}" Grid.Column="1" Grid.Row="3"/>
 				<TextBlock Text="{Binding SelectedDrug.Type.Name}" Grid.Column="1" Grid.Row="4"/>
 
-				<!--<Button Content="Изменить" FontSize="20" Grid.Column="3" Grid.Row="8" Margin="10 0 20 0" ToolTip.Tip="Изменить статус заявки"/>-->
+				<Button Content="Изменить количество" FontSize="20" Grid.Column="3" Grid.Row="8" Margin="10 0 20 0" Click="EditDrugCountWindow" ToolTip.Tip="Изменить количество лекарства"/>
 			</Grid>
 		</Grid>
 	</StackPanel>

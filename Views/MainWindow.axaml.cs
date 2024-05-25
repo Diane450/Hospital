@@ -13,9 +13,19 @@ public partial class MainWindow : Window
         InitializeComponent();
         DataContext = new MainWindowViewModel();
     }
+    
     private void OpenReportWindow(object sender, RoutedEventArgs e)
     {
         var window = new ReportWindow();
+        window.ShowDialog(this);
+    }
+    private void EditDrugCountWindow(object sender, RoutedEventArgs e)
+    {
+        var button = (Button)sender;
+        var dataContext = (MainWindowViewModel)button.DataContext;
+        var SelectedDrug = dataContext.SelectedDrug;
+
+        var window = new EditDrugCountWindow(SelectedDrug);
         window.ShowDialog(this);
     }
 }

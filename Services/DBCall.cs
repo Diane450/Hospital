@@ -90,5 +90,39 @@ namespace Hospital.Services
             .ToList();
             return receivingDrugsQuantities;
         }
+
+        public static void ReceiveDrug(int drugId, int workerId, int count)
+        {
+            var drug = _dbContext.Drugs.First(d => d.Id == drugId);
+            drug.Count += count;
+            _dbContext.SaveChanges();
+
+            var receiveDrug = new ReceivingDrug
+            {
+                DrugId = drugId,
+                WorkerId = workerId,
+                Date = DateOnly.FromDateTime(DateTime.Now),
+                Count = count
+            };
+            _dbContext.ReceivingDrugs.Add(receiveDrug);
+            _dbContext.SaveChanges();
+        }
+
+        public static void DispenseDrug(int drugId, int workerId, int count)
+        {
+            var drug = _dbContext.Drugs.First(d => d.Id == drugId);
+            drug.Count -= count;
+            _dbContext.SaveChanges();
+
+            var dispensingDrug = new DispensingDrug
+            {
+                DrugId = drugId,
+                WorkerId = workerId,
+                Date = DateOnly.FromDateTime(DateTime.Now),
+                Count = count
+            };
+            _dbContext.DispensingDrugs.Add(dispensingDrug);
+            _dbContext.SaveChanges();
+        }
     }
 }

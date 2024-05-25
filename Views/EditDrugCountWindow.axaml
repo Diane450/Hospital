@@ -1,0 +1,27 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" Width="350" Height="300" MaxWidth="350" MaxHeight="420" MinWidth="320" MinHeight="300"
+        x:Class="Hospital.EditDrugCountWindow"
+        Icon="/Assets/icon.png"
+        Title="Самарская городская поликлиника № 14"
+		xmlns:vm="using:Hospital.ViewModels"
+		x:DataType="vm:EditDrugCountWindowViewModel"
+		WindowStartupLocation="CenterOwner">
+	    
+	<StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+		<Label Content="{Binding Info}" Margin="0 5" FontStretch="Normal" FontSize="16"/>
+		<NumericUpDown Value="{Binding Count}" Minimum="1" FormatString="0" Margin="10"/>
+		<StackPanel Orientation="Horizontal" Margin="10" HorizontalAlignment="Center">
+			<Button Content="Добавить" Margin="5 0" Command="{Binding Add}"/>
+			<Button Content="Выдать" Margin="5 0" Command="{Binding Remove}" IsEnabled="{Binding IsRemovingEnabled}"/>
+			<Image Source="/Assets/information.png" Height="20" HorizontalAlignment="Left" Margin="10 0 0 0">
+				<ToolTip.Tip>
+					<TextBlock FontSize="14" Text="Кнопка выдать недоступна в случае, если количество препарата меньше/равно нулю"/>
+				</ToolTip.Tip>
+			</Image>
+		</StackPanel>
+		<TextBlock Text="{Binding Message}" Margin="5" Foreground="IndianRed" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+	</StackPanel>
+</Window>
