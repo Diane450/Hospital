@@ -1,6 +1,8 @@
 ﻿using Hospital.Models;
+using Hospital.ModelsDTO;
 using Hospital.Views;
 using Microsoft.EntityFrameworkCore;
+using SkiaSharp;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -14,21 +16,24 @@ namespace Hospital.Services
     {
         private static readonly Ispr2438IbragimovaDmHospitalContext _dbContext = new();
 
-        public static User Authorize(string login, string password)
+        public static Worker Authorize(string login, string password)
         {
-            return _dbContext.Users
-                .Include(u=>u.Role)
-                .FirstOrDefault(u => u.Login == login && u.Password == password);
+            return _dbContext.Workers
+                .Include(w=>w.JobTitle)
+                .ThenInclude(j=>j.Department)
+                .Include(w => w.User)
+                .ThenInclude(u => u.Role)
+                .FirstOrDefault(u => u.User.Login == login && u.User.Password == password);
         }
 
         public static List<DrugDTO> GetDrugs()
         {
             return _dbContext.Drugs
-                .Include(d=>d.Manufacturer)
-                .Include(d=>d.DrugProvider)
-                .Include(d=>d.Type)
-                .Select(d=>new DrugDTO
-                { 
+                .Include(d => d.Manufacturer)
+                .Include(d => d.DrugProvider)
+                .Include(d => d.Type)
+                .Select(d => new DrugDTO
+                {
                     Id = d.Id,
                     Name = d.Name,
                     Manufacturer = d.Manufacturer,
@@ -52,6 +57,38 @@ namespace Hospital.Services
         public static List<DrugType> GetTypes()
         {
             return _dbContext.DrugTypes.ToList();
+        }
+
+        public static List<DispensingDrug> GetDispensingDrugData(DateOnly[] DateRange)
+        {
+            var dispensingDrugsQuantities = _dbContext.DispensingDrugs
+            .Where(d => d.Date >= DateRange[0] && d.Date <= DateRange[1])
+            .Include(d => d.Drug)
+            .GroupBy(di => di.DrugId)
+            .Select(g => new DispensingDrug()
+            {
+                Drug = g.First().Drug,
+                DrugId = g.Key,
+                Count = g.Sum(di => di.Count)
+            })
+            .ToList();
+            return dispensingDrugsQuantities;
+        }
+
+        public static List<ReceivingDrug> GetReceivingDrugData(DateOnly[] DateRange)
+        {
+            var receivingDrugsQuantities = _dbContext.ReceivingDrugs
+            .Where(d => d.Date >= DateRange[0] && d.Date <= DateRange[1])
+            .Include(d => d.Drug)
+            .GroupBy(di => di.DrugId)
+            .Select(g => new ReceivingDrug()
+            {
+                Drug = g.First().Drug,
+                DrugId = g.Key,
+                Count = g.Sum(di => di.Count)
+            })
+            .ToList();
+            return receivingDrugsQuantities;
         }
     }
 }

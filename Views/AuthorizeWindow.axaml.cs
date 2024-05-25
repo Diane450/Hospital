@@ -1,6 +1,7 @@
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Hospital.Models;
+using Hospital.ModelsDTO;
 using Hospital.Services;
 using System;
 
@@ -18,9 +19,10 @@ namespace Hospital.Views
             {
                 TextBox code = this.Find<TextBox>("Code")!;
                 TextBox login = this.Find<TextBox>("Login")!;
-                User user = DBCall.Authorize(login.Text!, code.Text!);
-                if (user != null)
+                Worker worker = DBCall.Authorize(login.Text!, code.Text!);
+                if (worker != null)
                 {
+                    CurrentUser.Worker = worker;
                     var window = new MainWindow();
                     window.Show();
                     Close();

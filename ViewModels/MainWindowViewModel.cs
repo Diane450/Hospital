@@ -7,10 +7,6 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reactive.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Linq;
-using Tmds.DBus.Protocol;
 
 namespace Hospital.ViewModels
 {
@@ -117,6 +113,7 @@ namespace Hospital.ViewModels
 
         public MainWindowViewModel()
         {
+            CreateReport();
             GetContent();
             this.WhenAnyValue(x => x.SearchingDrug).Subscribe(_ => Find());
         }
@@ -167,7 +164,6 @@ namespace Hospital.ViewModels
             SelectedType = Types[0];
 
             SelectedSortValue = SortValues[0];
-
         }
 
         private void Filter()
@@ -224,6 +220,13 @@ namespace Hospital.ViewModels
                 FilteredDrugs = new ObservableCollection<DrugDTO>(FilteredDrugs.OrderByDescending(d => d.Count).ToList());
             }
             SelectedDrug = FilteredDrugs[0];
+        }
+
+        public void CreateReport()
+        {
+            var r = new Report(new [] { DateOnly.FromDateTime(DateTime.Now.AddDays(-2)), DateOnly.FromDateTime(DateTime.Now) });
+            r.GetReportData();
+            r.CreateReport();
         }
     }
 }

@@ -13,6 +13,8 @@ public partial class ReceivingDrug
 
     public DateOnly Date { get; set; }
 
+    public int Count { get; set; }
+
     public virtual Drug Drug { get; set; } = null!;
 
     public virtual Worker Worker { get; set; } = null!;
