@@ -113,7 +113,6 @@ namespace Hospital.ViewModels
 
         public MainWindowViewModel()
         {
-            CreateReport();
             GetContent();
             this.WhenAnyValue(x => x.SearchingDrug).Subscribe(_ => Find());
         }
@@ -222,11 +221,5 @@ namespace Hospital.ViewModels
             SelectedDrug = FilteredDrugs[0];
         }
 
-        public void CreateReport()
-        {
-            var r = new Report(new [] { DateOnly.FromDateTime(DateTime.Now.AddDays(-2)), DateOnly.FromDateTime(DateTime.Now) });
-            r.GetReportData();
-            r.CreateReport();
-        }
     }
 }

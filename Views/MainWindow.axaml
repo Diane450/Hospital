@@ -67,7 +67,7 @@
 					</ComboBox>
 				</StackPanel>
 
-				<!--<Button Content="Создать отчет" Click="OpenReportWindow" Height="40" Padding="10" Margin="10 20 10 0"/>-->
+				<Button Content="Создать отчет" Click="OpenReportWindow" Height="40" Padding="10" Margin="10 20 10 0"/>
 
 				<TextBlock Text="{Binding Message}" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="IndianRed" Margin="10 20 10 0"/>
 

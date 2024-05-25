@@ -4,11 +4,12 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
-using System.Threading.Tasks;
-using System.Drawing.Imaging;
-using Avalonia.Platform;
 using Hospital.ModelsDTO;
 using Hospital.Models;
+using System.Drawing.Printing;
+using Avalonia.Dialogs;
+using PdfiumViewer;
+using System.Diagnostics;
 
 namespace Hospital.Services
 {

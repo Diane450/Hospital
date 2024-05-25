@@ -1,5 +1,6 @@
 using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
 using Hospital.ViewModels;
 
@@ -11,5 +12,10 @@ public partial class MainWindow : Window
     {
         InitializeComponent();
         DataContext = new MainWindowViewModel();
+    }
+    private void OpenReportWindow(object sender, RoutedEventArgs e)
+    {
+        var window = new ReportWindow();
+        window.ShowDialog(this);
     }
 }

@@ -75,6 +75,10 @@
               "target": "Package",
               "version": "[7.0.19, )"
             },
+            "PdfiumViewer": {
+              "target": "Package",
+              "version": "[2.13.0, )"
+            },
             "Pomelo.EntityFrameworkCore.MySql": {
               "target": "Package",
               "version": "[7.0.0, )"
