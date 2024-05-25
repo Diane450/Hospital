@@ -14,7 +14,7 @@
 		<TextBlock Text="Вы уверены, что хотите удалить данный препарат?"/>
 		<StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center" >
 			<Button Content="Отмена" Margin="10" Click="Close"/>
-			<Button Content="Удалить" Margin="10" Command="{Binding Delete}"/>
+			<Button Content="Удалить" Margin="10" Command="{Binding Delete}" IsEnabled="{Binding IsButtonEnable}"/>
 		</StackPanel>
 		<TextBlock Text="{Binding Message}" Foreground="IndianRed"/>
 	</StackPanel>

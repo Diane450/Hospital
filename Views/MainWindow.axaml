@@ -21,7 +21,6 @@
 	<StackPanel >
 
 		<Grid ColumnDefinitions="*, *">
-
 			<StackPanel Orientation="Horizontal" Height="100" Grid.Column="0" >
 				<StackPanel Orientation="Vertical">
 					<TextBlock Text="Производитель:" Margin="10 10 10 0" FontSize="16"/>
@@ -98,7 +97,7 @@
 				<TextBlock Text="{Binding SelectedDrug.Type.Name}" Grid.Column="1" Grid.Row="4"/>
 
 				<Button Content="Изменить количество" FontSize="20" Grid.Column="1" Grid.Row="5" Margin="10 0 20 0" Click="EditDrugCountWindow" ToolTip.Tip="Изменить количество лекарства" IsVisible="{Binding !IsAdmin}"/>
-				<Button Content="Редактировать" FontSize="20" Grid.Column="1" Grid.Row="5" Margin="10 0 20 0" Click="EditDrugCountWindow" ToolTip.Tip="Редактировать выбранное лекарство" IsVisible="{Binding IsAdmin}"/>
+				<Button Content="Редактировать" FontSize="20" Grid.Column="1" Grid.Row="5" Margin="10 0 20 0" Click="EditDrugWindow" ToolTip.Tip="Редактировать выбранное лекарство" IsVisible="{Binding IsAdmin}"/>
 				
 			</Grid>
 		</Grid>

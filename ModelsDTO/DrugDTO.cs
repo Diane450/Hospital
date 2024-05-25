@@ -54,6 +54,7 @@ public class DrugDTO : INotifyPropertyChanged
         {
             _count = value;
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Count)));
+
         }
     }
 

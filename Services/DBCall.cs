@@ -146,5 +146,19 @@ namespace Hospital.Services
             _dbContext.Drugs.Add(drug);
             _dbContext.SaveChanges();
         }
+
+        public static void EditDrug(DrugDTO drugDTO)
+        {
+            var drug = _dbContext.Drugs.First(d => d.Id == drugDTO.Id);
+
+            drug.Name = drugDTO.Name;
+            drug.Manufacturer = drugDTO.Manufacturer;
+            drug.Photo = drugDTO.Photo;
+            drug.DrugProvider = drugDTO.DrugProvider;
+            drug.Type = drugDTO.Type;
+            //drug.Count = drugDTO.Count;
+
+            _dbContext.SaveChanges();
+        }
     }
 }

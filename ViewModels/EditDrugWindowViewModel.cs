@@ -1,17 +1,19 @@
 ﻿using Hospital.Models;
+using Hospital.ModelsDTO;
 using Hospital.Services;
 using ReactiveUI;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reactive.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Hospital.ViewModels
 {
-    public class AddNewDrugWindowViewModel : ViewModelBase
+    public class EditDrugWindowViewModel : ViewModelBase
     {
+        public DrugDTO CurrentDrug { get; set; }
+
         private DrugDTO _drug = null!;
 
         public DrugDTO Drug
@@ -58,6 +60,14 @@ namespace Hospital.ViewModels
             set { _selectedType = this.RaiseAndSetIfChanged(ref _selectedType, value); }
         }
 
+        private int? _count;
+
+        public int? Count
+        {
+            get { return _count; }
+            set { _count = this.RaiseAndSetIfChanged(ref _count, value); }
+        }
+
         public MainWindowViewModel Model { get; set; }
 
         private string _message;
@@ -67,26 +77,26 @@ namespace Hospital.ViewModels
             get { return _message; }
             set { _message = this.RaiseAndSetIfChanged(ref _message, value); }
         }
-
-        private int? _count;
-
-        public int? Count
+        public EditDrugWindowViewModel(DrugDTO drug)
         {
-            get { return _count; }
-            set { _count = this.RaiseAndSetIfChanged(ref _count, value); }
-        }
-        public AddNewDrugWindowViewModel(MainWindowViewModel model, DrugDTO drug)
-        {
-            Drug = new DrugDTO();
-            Model = model;
+            Drug = new DrugDTO
+            {
+                Id = drug.Id,
+                Name = drug.Name,
+                Photo = drug.Photo
+            };
+
+            Count = drug.Count;
+            CurrentDrug = drug;
+
             Manufacturers = DBCall.GetManufacturers();
-            SelectedManufacturer = Manufacturers[0];
+            SelectedManufacturer = Manufacturers.First(m => m.Id == CurrentDrug.Manufacturer.Id);
 
             DrugProviders = DBCall.GetDrugProviders();
-            SelectedDrugProvider = DrugProviders[0];
+            SelectedDrugProvider = DrugProviders.First(p => p.Id == CurrentDrug.DrugProvider.Id);
 
             Types = DBCall.GetTypes();
-            SelectedType = Types[0];
+            SelectedType = Types.First(p => p.Id == CurrentDrug.Type.Id);
 
             this.WhenAnyValue(
                 x => x.Drug.Name,
@@ -99,21 +109,33 @@ namespace Hospital.ViewModels
             IsButtonEnable = !string.IsNullOrEmpty(Drug.Name) && Drug.Photo != null && Count != null;
         }
 
-        public void Add()
+        public void Edit()
         {
             try
             {
                 Drug.Manufacturer = SelectedManufacturer;
                 Drug.DrugProvider = SelectedDrugProvider;
                 Drug.Type = SelectedType;
-                DBCall.AddDrug(Drug);
-                Model.Drugs.Add(Drug);
-                Model.Filter();
-                Message = "Новый препарат добавлен";
+                Drug.Count = (int)Count!;
+                DBCall.EditDrug(Drug);
+
+                if (CurrentDrug.Count > Drug.Count)
+                    DBCall.DispenseDrug(Drug.Id, CurrentUser.Worker.Id, CurrentDrug.Count - Drug.Count);
+                else if (CurrentDrug.Count < Drug.Count)
+                    DBCall.ReceiveDrug(Drug.Id, CurrentUser.Worker.Id, Drug.Count - CurrentDrug.Count);
+
+                CurrentDrug.Name = Drug.Name;
+                CurrentDrug.Photo = Drug.Photo;
+                CurrentDrug.Type = Drug.Type;
+                CurrentDrug.Manufacturer = Drug.Manufacturer;
+                CurrentDrug.DrugProvider = Drug.DrugProvider;
+                CurrentDrug.Count = Drug.Count;
+
+                Message = "Данные обновлены";
             }
             catch
             {
-                Message = "Не удалось добавить новый препарат";
+                Message = "Не удалось обновить данные";
             }
         }
     }

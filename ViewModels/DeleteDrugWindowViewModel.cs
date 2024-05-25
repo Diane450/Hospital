@@ -24,6 +24,15 @@ namespace Hospital.ViewModels
             set { _message = this.RaiseAndSetIfChanged(ref _message, value); }
         }
 
+        private bool _isButtonEnable = true;
+
+        public bool IsButtonEnable
+        {
+            get { return _isButtonEnable; }
+            set { _isButtonEnable = this.RaiseAndSetIfChanged(ref _isButtonEnable, value); }
+        }
+
+
         public DeleteDrugWindowViewModel(MainWindowViewModel model, DrugDTO drug)
         {
             Model = model;
@@ -38,6 +47,7 @@ namespace Hospital.ViewModels
                 Model.Drugs.Remove(Drug);
                 Model.Filter();
                 Message = "Успешно удалено";
+                IsButtonEnable = false;
             }
             catch (Exception)
             {

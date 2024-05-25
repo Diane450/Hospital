@@ -48,4 +48,13 @@ public partial class MainWindow : Window
         var window = new AddNewDrugWindow(dataContext, SelectedDrug);
         window.ShowDialog(this);
     }
+    private void EditDrugWindow(object sender, RoutedEventArgs e)
+    {
+        var button = (Button)sender;
+        var dataContext = (MainWindowViewModel)button.DataContext;
+        var SelectedDrug = dataContext.SelectedDrug;
+
+        var window = new EditDrugWindow(SelectedDrug);
+        window.ShowDialog(this);
+    }
 }
