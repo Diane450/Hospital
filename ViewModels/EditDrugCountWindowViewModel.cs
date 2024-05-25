@@ -24,7 +24,7 @@ namespace Hospital.ViewModels
             set { _count = this.RaiseAndSetIfChanged(ref _count, value); }
         }
 
-        private string _message;
+        private string _message = null!;
 
         public string Message
         {

@@ -1,5 +1,7 @@
-﻿using DynamicData;
+﻿using Avalonia.Controls.Documents;
+using DynamicData;
 using Hospital.Models;
+using Hospital.ModelsDTO;
 using Hospital.Services;
 using ReactiveUI;
 using System;
@@ -15,7 +17,7 @@ namespace Hospital.ViewModels
         public List<DrugDTO> Drugs { get; set; } = null!;
 
 
-        private ObservableCollection<DrugDTO> _filteredDrugs;
+        private ObservableCollection<DrugDTO> _filteredDrugs = null!;
 
         public ObservableCollection<DrugDTO> FilteredDrugs
         {
@@ -111,10 +113,12 @@ namespace Hospital.ViewModels
             set { _selectedSortValue = this.RaiseAndSetIfChanged(ref _selectedSortValue, value); Sort(); }
         }
 
+        public bool IsAdmin { get; set; }
         public MainWindowViewModel()
         {
             GetContent();
             this.WhenAnyValue(x => x.SearchingDrug).Subscribe(_ => Find());
+            IsAdmin = CurrentUser.Worker.User.RoleId == 1;
         }
 
         private void Find()
@@ -128,7 +132,9 @@ namespace Hospital.ViewModels
                     Message = "Не найдено";
                 }
                 else
-                {
+                { 
+                    IsFilteredListNotNull = true;
+                    Message = "";
                     SelectedDrug = FilteredDrugs[0];
                 }
             }
@@ -165,7 +171,7 @@ namespace Hospital.ViewModels
             SelectedSortValue = SortValues[0];
         }
 
-        private void Filter()
+        public void Filter()
         {
             var filteredList = new List<DrugDTO>(Drugs);
 
@@ -196,7 +202,7 @@ namespace Hospital.ViewModels
             else
             {
                 IsFilteredListNotNull = false;
-                Message = "Нет лекарств по выбранным категориям";
+                Message = "Не найдено";
             }
         }
     
@@ -220,6 +226,5 @@ namespace Hospital.ViewModels
             }
             SelectedDrug = FilteredDrugs[0];
         }
-
     }
 }

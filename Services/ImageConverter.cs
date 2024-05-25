@@ -17,7 +17,7 @@ namespace Session2v2.Services
         {
             if (value == null)
             {
-                return new Bitmap(AssetLoader.Open(new Uri("avares://Session2v2/Assets/no-photo.png")));
+                return new Bitmap(AssetLoader.Open(new Uri("avares://Hospital/Assets/no-photo.png")));
             }
             var ms = new MemoryStream((byte[])value);
             return new Bitmap(ms);

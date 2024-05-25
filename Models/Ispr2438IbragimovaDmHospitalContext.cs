@@ -68,7 +68,6 @@ public partial class Ispr2438IbragimovaDmHospitalContext : DbContext
 
             entity.HasOne(d => d.Drug).WithMany(p => p.DispensingDrugs)
                 .HasForeignKey(d => d.DrugId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_DispendingDrugs_DrugId");
 
             entity.HasOne(d => d.Worker).WithMany(p => p.DispensingDrugs)
@@ -177,7 +176,6 @@ public partial class Ispr2438IbragimovaDmHospitalContext : DbContext
 
             entity.HasOne(d => d.Drug).WithMany(p => p.ReceivingDrugs)
                 .HasForeignKey(d => d.DrugId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_ReceivingDrugs_DrugId");
 
             entity.HasOne(d => d.Worker).WithMany(p => p.ReceivingDrugs)

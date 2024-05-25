@@ -26,6 +26,26 @@ public partial class MainWindow : Window
         var SelectedDrug = dataContext.SelectedDrug;
 
         var window = new EditDrugCountWindow(SelectedDrug);
+        window.ShowDialog(this); 
+    }
+
+    private void DeleteDrug(object sender, RoutedEventArgs e)
+    {
+        var button = (Button)sender;
+        var dataContext = (MainWindowViewModel)button.DataContext;
+        var SelectedDrug = dataContext.SelectedDrug;
+
+        var window = new DeleteDrugWindow(dataContext, SelectedDrug);
+        window.ShowDialog(this); 
+    }
+
+    private void AddNewDrug(object sender, RoutedEventArgs e)
+    {
+        var button = (Button)sender;
+        var dataContext = (MainWindowViewModel)button.DataContext;
+        var SelectedDrug = dataContext.SelectedDrug;
+
+        var window = new AddNewDrugWindow(dataContext, SelectedDrug);
         window.ShowDialog(this);
     }
 }

@@ -19,8 +19,8 @@ namespace Hospital.Services
         public static Worker Authorize(string login, string password)
         {
             return _dbContext.Workers
-                .Include(w=>w.JobTitle)
-                .ThenInclude(j=>j.Department)
+                .Include(w => w.JobTitle)
+                .ThenInclude(j => j.Department)
                 .Include(w => w.User)
                 .ThenInclude(u => u.Role)
                 .FirstOrDefault(u => u.User.Login == login && u.User.Password == password);
@@ -122,6 +122,28 @@ namespace Hospital.Services
                 Count = count
             };
             _dbContext.DispensingDrugs.Add(dispensingDrug);
+            _dbContext.SaveChanges();
+        }
+
+        public static void DeleteDrug(DrugDTO drugDTO)
+        {
+            var drug = _dbContext.Drugs.First(d => d.Id == drugDTO.Id);
+            _dbContext.Drugs.Remove(drug);
+            _dbContext.SaveChanges();
+        }
+
+        public static void AddDrug(DrugDTO drugDTO)
+        {
+            var drug = new Drug
+            {
+                Name = drugDTO.Name,
+                Manufacturer = drugDTO.Manufacturer,
+                Photo = drugDTO.Photo,
+                DrugProvider = drugDTO.DrugProvider,
+                Type = drugDTO.Type,
+                Count = drugDTO.Count
+            };
+            _dbContext.Drugs.Add(drug);
             _dbContext.SaveChanges();
         }
     }

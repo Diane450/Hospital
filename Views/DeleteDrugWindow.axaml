@@ -1,0 +1,22 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" Width="490" Height="180" MaxHeight="180" MaxWidth="490" MinHeight="180" MinWidth="490"
+        x:Class="Hospital.DeleteDrugWindow"
+		xmlns:vm="using:Hospital.ViewModels"
+		x:DataType="vm:DeleteDrugWindowViewModel"
+        Icon="/Assets/icon.png"
+        Title="Самарская городская поликлиника № 14"
+		WindowStartupLocation="CenterOwner">
+
+	<StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+		<TextBlock Text="Вы уверены, что хотите удалить данный препарат?"/>
+		<StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center" >
+			<Button Content="Отмена" Margin="10" Click="Close"/>
+			<Button Content="Удалить" Margin="10" Command="{Binding Delete}"/>
+		</StackPanel>
+		<TextBlock Text="{Binding Message}" Foreground="IndianRed"/>
+	</StackPanel>
+	
+</Window>
