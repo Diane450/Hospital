@@ -20,7 +20,7 @@ namespace Hospital.Services
         public DateOnly[] DateRange { get; set; }
 
         public List<DispensingDrug> DispensingDrugList { get; set; } = null!;
-        
+
         public List<ReceivingDrug> ReceivingDrugList { get; set; } = null!;
 
 
@@ -121,44 +121,71 @@ namespace Hospital.Services
         private void AddDispensingDrugsTable(Font fgFont)
         {
             CreateTitle("Статистика выданных лекарств за период");
-            var dispensingDrugsTable = new PdfPTable(new[] { .75f, .75f})
+            if (DispensingDrugList.Count > 0)
             {
-                HorizontalAlignment = 1,
-                WidthPercentage = 75,
-                DefaultCell = { MinimumHeight = 22f },
-            };
+                var dispensingDrugsTable = new PdfPTable(new[] { .75f, .75f })
+                {
+                    HorizontalAlignment = 1,
+                    WidthPercentage = 75,
+                    DefaultCell = { MinimumHeight = 22f },
+                };
 
-            foreach (var item in DispensingDrugList)
-            {
-                PdfPCell cell = new PdfPCell(new Phrase(item.Drug.Name, fgFont));
-                dispensingDrugsTable.AddCell(cell);
+                foreach (var item in DispensingDrugList)
+                {
+                    PdfPCell cell = new PdfPCell(new Phrase(item.Drug.Name, fgFont));
+                    dispensingDrugsTable.AddCell(cell);
 
-                PdfPCell cell2 = new PdfPCell(new Phrase(item.Count.ToString(), fgFont));
-                dispensingDrugsTable.AddCell(cell2);
+                    PdfPCell cell2 = new PdfPCell(new Phrase(item.Count.ToString(), fgFont));
+                    dispensingDrugsTable.AddCell(cell2);
+                }
+                PdfDoc.Add(dispensingDrugsTable);
             }
-            PdfDoc.Add(dispensingDrugsTable);
+            else
+            {
+                var title = new Paragraph($"Отсутсвует", fgFont)
+                {
+                    SpacingAfter = 25f,
+                    Alignment = Element.ALIGN_CENTER
+                };
+                PdfDoc.Add(title);
+
+            }
+
         }
 
         private void AddReceivingDrugTable(Font fgFont)
         {
             CreateTitle("Статистика полученных лекарств за период");
-            var receivingDrugsTable = new PdfPTable(new[] { .75f, .75f })
-            {
-                HorizontalAlignment = 1,
-                WidthPercentage = 75,
-                DefaultCell = { MinimumHeight = 22f },
-            };
 
-            foreach (var item in ReceivingDrugList)
+            if (ReceivingDrugList.Count > 0)
             {
-                PdfPCell cell = new PdfPCell(new Phrase(item.Drug.Name, fgFont));
-                receivingDrugsTable.AddCell(cell);
+                var receivingDrugsTable = new PdfPTable(new[] { .75f, .75f })
+                {
+                    HorizontalAlignment = 1,
+                    WidthPercentage = 75,
+                    DefaultCell = { MinimumHeight = 22f },
+                };
 
-                PdfPCell cell2 = new PdfPCell(new Phrase(item.Count.ToString(), fgFont));
-                receivingDrugsTable.AddCell(cell2);
+                foreach (var item in ReceivingDrugList)
+                {
+                    PdfPCell cell = new PdfPCell(new Phrase(item.Drug.Name, fgFont));
+                    receivingDrugsTable.AddCell(cell);
+
+                    PdfPCell cell2 = new PdfPCell(new Phrase(item.Count.ToString(), fgFont));
+                    receivingDrugsTable.AddCell(cell2);
+                }
+
+                PdfDoc.Add(receivingDrugsTable);
             }
-
-            PdfDoc.Add(receivingDrugsTable);
+            else
+            {
+                var title = new Paragraph($"Отсутсвует", fgFont)
+                {
+                    SpacingAfter = 25f,
+                    Alignment = Element.ALIGN_CENTER
+                };
+                PdfDoc.Add(title);
+            }
         }
     }
 }

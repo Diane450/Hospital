@@ -58,6 +58,7 @@ namespace Hospital.ViewModels
             set { _selectedType = this.RaiseAndSetIfChanged(ref _selectedType, value); }
         }
 
+
         public MainWindowViewModel Model { get; set; }
 
         private string _message;
@@ -104,9 +105,10 @@ namespace Hospital.ViewModels
             try
             {
                 Drug.Manufacturer = SelectedManufacturer;
+                Drug.Count = (int)Count!;
                 Drug.DrugProvider = SelectedDrugProvider;
                 Drug.Type = SelectedType;
-                DBCall.AddDrug(Drug);
+                Drug.Id = DBCall.AddDrug(Drug);
                 Model.Drugs.Add(Drug);
                 Model.Filter();
                 Message = "Новый препарат добавлен";

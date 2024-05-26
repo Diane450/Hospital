@@ -53,6 +53,7 @@ namespace Hospital.ViewModels
                 DBCall.ReceiveDrug(CurrentDrug.Id, CurrentUser.Worker.Id, Count);
                 CurrentDrug.Count += Count;
                 Message = "Количество успешно изменено";
+                IsRemovingEnabled = CurrentDrug.Count > 0;
             }
             catch
             {
@@ -64,9 +65,17 @@ namespace Hospital.ViewModels
         {
             try
             {
-                DBCall.DispenseDrug(CurrentDrug.Id, CurrentUser.Worker.Id, Count);
-                CurrentDrug.Count -= Count;
-                Message = "Количество успешно изменено";
+                if(Count > CurrentDrug.Count)
+                {
+                    Message = "Нельзя выдать больше лекарств, чем \n их есть на складе";
+                }
+                else
+                {
+                    DBCall.DispenseDrug(CurrentDrug.Id, CurrentUser.Worker.Id, Count);
+                    CurrentDrug.Count -= Count;
+                    Message = "Количество успешно изменено";
+                    IsRemovingEnabled = CurrentDrug.Count > 0;
+                }
             }
             catch
             {

@@ -132,7 +132,7 @@ namespace Hospital.Services
             _dbContext.SaveChanges();
         }
 
-        public static void AddDrug(DrugDTO drugDTO)
+        public static int AddDrug(DrugDTO drugDTO)
         {
             var drug = new Drug
             {
@@ -145,6 +145,7 @@ namespace Hospital.Services
             };
             _dbContext.Drugs.Add(drug);
             _dbContext.SaveChanges();
+            return drug.Id;
         }
 
         public static void EditDrug(DrugDTO drugDTO)
