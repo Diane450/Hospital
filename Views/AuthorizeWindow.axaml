@@ -7,11 +7,12 @@
         x:Class="Hospital.Views.AuthorizeWindow"
         x:DataType="vm:AuthorizeWindowViewModel"
         Icon="/Assets/icon.png"
-        Title="Самарская городская поликлиника № 14">
+        Title="Самарская городская поликлиника № 14"
+		WindowStartupLocation="CenterOwner">
 
     <StackPanel VerticalAlignment="Center" Width="300" MaxWidth="400">
-		<TextBox Text="{Binding Code}" x:Name="Code" VerticalAlignment="Center" Margin="15 10" Watermark="Логин"></TextBox>
-		<TextBox Text="{Binding Login}" x:Name="Login" VerticalAlignment="Center" Margin="15 10" Watermark="Пароль"></TextBox>
+		<TextBox Text="{Binding Login}" x:Name="Login" VerticalAlignment="Center" Margin="15 10" Watermark="Логин"></TextBox>
+		<TextBox Text="{Binding Code}" x:Name="Code" VerticalAlignment="Center" Margin="15 10" Watermark="Пароль"></TextBox>
 		<Label x:Name="ErrorLabel" Classes="ErrorLabel" Margin="15 0 0 15" IsVisible="false" Foreground="IndianRed"/>
 		<Button IsEnabled="{Binding IsAuthEnable}" Click="Authorize" x:Name="MyButton" HorizontalAlignment="Center" Padding="10"
 		IsDefault="True">Авторизоваться</Button>
