@@ -15,13 +15,16 @@ namespace Hospital.ViewModels
         public DrugDTO CurrentDrug { get; set; }
 
         public string Info { get; set; } = "Введите количество выписываемого \n или получаемого препарата(уп.)";
-        
-        private int _count;
 
-        public int Count
+        private int? _count = 1;
+
+        public int? Count
         {
             get { return _count; }
-            set { _count = this.RaiseAndSetIfChanged(ref _count, value); }
+            set
+            {
+                _count = this.RaiseAndSetIfChanged(ref _count, value);
+            }
         }
 
         private string _message = null!;
@@ -44,16 +47,23 @@ namespace Hospital.ViewModels
         {
             CurrentDrug = drugDTO;
             IsRemovingEnabled = CurrentDrug.Count > 0;
+            //this.WhenAnyValue(x => x.Count).Subscribe(_ => IsEnabled());
         }
-
         public void Add()
         {
             try
             {
-                DBCall.ReceiveDrug(CurrentDrug.Id, CurrentUser.Worker.Id, Count);
-                CurrentDrug.Count += Count;
-                Message = "Количество успешно изменено";
-                IsRemovingEnabled = CurrentDrug.Count > 0;
+                if (Count > 0)
+                {
+                    DBCall.ReceiveDrug(CurrentDrug.Id, CurrentUser.Worker.Id, (int)Count);
+                    CurrentDrug.Count += (int)Count;
+                    Message = "Количество успешно изменено";
+                    IsRemovingEnabled = CurrentDrug.Count > 0;
+                }
+                else
+                {
+                    Message = "Некорректное число";
+                }
             }
             catch
             {
@@ -65,16 +75,20 @@ namespace Hospital.ViewModels
         {
             try
             {
-                if(Count > CurrentDrug.Count)
+                if (Count > CurrentDrug.Count)
                 {
                     Message = "Нельзя выдать больше лекарств, чем \n их есть на складе";
                 }
-                else
+                else if (Count > 0)
                 {
-                    DBCall.DispenseDrug(CurrentDrug.Id, CurrentUser.Worker.Id, Count);
-                    CurrentDrug.Count -= Count;
+                    DBCall.DispenseDrug(CurrentDrug.Id, CurrentUser.Worker.Id, (int)Count);
+                    CurrentDrug.Count -= (int)Count;
                     Message = "Количество успешно изменено";
                     IsRemovingEnabled = CurrentDrug.Count > 0;
+                }
+                else if (Count <= 0)
+                {
+                    Message = "Некорректное число";
                 }
             }
             catch
