@@ -14,7 +14,7 @@ namespace Hospital.Services
 {
     public static class DBCall
     {
-        private static readonly Ispr2438IbragimovaDmHospitalContext _dbContext = new();
+        private static readonly Context _dbContext = new();
 
         public static Worker Authorize(string login, string password)
         {

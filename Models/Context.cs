@@ -4,13 +4,13 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Hospital.Models;
 
-public partial class Ispr2438IbragimovaDmHospitalContext : DbContext
+public partial class Context : DbContext
 {
-    public Ispr2438IbragimovaDmHospitalContext()
+    public Context()
     {
     }
 
-    public Ispr2438IbragimovaDmHospitalContext(DbContextOptions<Ispr2438IbragimovaDmHospitalContext> options)
+    public Context(DbContextOptions<Context> options)
         : base(options)
     {
     }
