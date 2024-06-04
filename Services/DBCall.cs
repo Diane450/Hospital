@@ -157,7 +157,6 @@ namespace Hospital.Services
             drug.Photo = drugDTO.Photo;
             drug.DrugProvider = drugDTO.DrugProvider;
             drug.Type = drugDTO.Type;
-            //drug.Count = drugDTO.Count;
 
             _dbContext.SaveChanges();
         }
