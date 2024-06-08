@@ -61,7 +61,7 @@ namespace Hospital.ViewModels
 
         public MainWindowViewModel Model { get; set; }
 
-        private string _message;
+        private string _message = null!;
 
         public string Message
         {

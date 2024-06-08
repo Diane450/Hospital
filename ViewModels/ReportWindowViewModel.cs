@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Hospital.ViewModels
 {
-    public class ReportWindowViewModel : ViewModelBase
+    public class ReportWindowViewModel(ReportWindow window) : ViewModelBase
     {
         public DateTime Today { get; set; } = DateTime.Now;
 
@@ -42,27 +42,24 @@ namespace Hospital.ViewModels
             set { _message = this.RaiseAndSetIfChanged(ref _message, value); }
         }
 
-        public ReportWindowViewModel()
-        {
-
-        }
+        public ReportWindow ReportWindow { get; set; } = window;
 
         public async Task CreateReport()
         {
             try
             {
-                DateTime DateStart = (DateTime)SelectedDateStart;
-                DateTime DateEnd = (DateTime)SelectedDateEnd;
+                DateTime DateStart = (DateTime)SelectedDateStart!;
+                DateTime DateEnd = (DateTime)SelectedDateEnd!;
 
-                DateOnly[] range = new DateOnly[]
-                {
-                    new DateOnly (DateStart.Year, DateStart.Month, DateStart.Day),
-                    new DateOnly (DateEnd.Year, DateEnd.Month, DateEnd.Day)
-                };
+                DateOnly[] range =
+                [
+                    new(DateStart.Year, DateStart.Month, DateStart.Day),
+                    new(DateEnd.Year, DateEnd.Month, DateEnd.Day)
+                ];
                 Array.Sort(range);
-                Report report = new Report(range);
+                Report report = new(range);
                 report.GetReportData();
-                report.CreateReport();
+                await report.CreateReport(ReportWindow);
                 Message = "Отчет готов";
             }
             catch

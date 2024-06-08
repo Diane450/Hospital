@@ -1,14 +1,8 @@
 ﻿using Hospital.Models;
-using Hospital.ModelsDTO;
-using Hospital.Views;
 using Microsoft.EntityFrameworkCore;
-using SkiaSharp;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Hospital.Services
 {
@@ -16,7 +10,7 @@ namespace Hospital.Services
     {
         private static readonly Context _dbContext = new();
 
-        public static Worker Authorize(string login, string password)
+        public static Worker? Authorize(string login, string password)
         {
             return _dbContext.Workers
                 .Include(w => w.JobTitle)
@@ -28,7 +22,7 @@ namespace Hospital.Services
 
         public static List<DrugDTO> GetDrugs()
         {
-            return _dbContext.Drugs
+            return [.. _dbContext.Drugs
                 .Include(d => d.Manufacturer)
                 .Include(d => d.DrugProvider)
                 .Include(d => d.Type)
@@ -41,22 +35,22 @@ namespace Hospital.Services
                     Count = d.Count,
                     Type = d.Type,
                     Photo = d.Photo
-                }).ToList();
+                })];
         }
 
         public static List<Manufacturer> GetManufacturers()
         {
-            return _dbContext.Manufacturers.ToList();
+            return [.. _dbContext.Manufacturers];
         }
 
         public static List<DrugProvider> GetDrugProviders()
         {
-            return _dbContext.DrugProviders.ToList();
+            return [.. _dbContext.DrugProviders];
         }
 
         public static List<DrugType> GetTypes()
         {
-            return _dbContext.DrugTypes.ToList();
+            return [.. _dbContext.DrugTypes];
         }
 
         public static List<DispensingDrug> GetDispensingDrugData(DateOnly[] DateRange)

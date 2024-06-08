@@ -1,7 +1,7 @@
-using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
-using Avalonia.Markup.Xaml;
+using Avalonia.Media.Imaging;
+using Avalonia.Platform.Storage;
 using Hospital.Models;
 using Hospital.ViewModels;
 using System.IO;
@@ -19,25 +19,31 @@ public partial class EditDrugWindow : Window
     private async void ChangePhoto(object sender, RoutedEventArgs e)
     {
         var button = (Button)sender;
-        var context = (EditDrugWindowViewModel)button.DataContext;
+        var context = (AddNewDrugWindowViewModel)button.DataContext!;
 
-        OpenFileDialog dialog = new OpenFileDialog();
-        dialog.Filters.Add(new FileDialogFilter() { Name = "Images", Extensions = { "jpg", "png", "jpeg" } });
-
-        string[] result = await dialog.ShowAsync(this);
-
-        if (result != null && result.Length > 0)
+        var storageProvider = StorageProvider;
+        var result = await storageProvider.OpenFilePickerAsync(new FilePickerOpenOptions
         {
-            using (FileStream fs = File.OpenRead(result[0]))
-            {
-                Avalonia.Media.Imaging.Bitmap bp = new Avalonia.Media.Imaging.Bitmap(fs);
-
-                using (MemoryStream ms = new MemoryStream())
+            Title = "Выбрать изображение",
+            FileTypeFilter =
+            [
+                new FilePickerFileType("Images")
                 {
-                    bp.Save(ms);
-                    context.Drug.Photo = ms.ToArray();
+                    Patterns = ["*.jpg", "*.png", "*.jpeg"]
                 }
-            }
+            ],
+            AllowMultiple = false
+        });
+
+        if (result.Count > 0)
+        {
+            var selectedFile = result[0];
+            await using var fs = await selectedFile.OpenReadAsync();
+            var bitmap = new Bitmap(fs);
+
+            using var ms = new MemoryStream();
+            bitmap.Save(ms);
+            context.Drug.Photo = ms.ToArray();
         }
     }
 }

@@ -19,7 +19,7 @@ namespace Hospital.Views
             {
                 TextBox code = this.Find<TextBox>("Code")!;
                 TextBox login = this.Find<TextBox>("Login")!;
-                Worker worker = DBCall.Authorize(login.Text!, code.Text!);
+                Worker worker = DBCall.Authorize(login.Text!, code.Text!)!;
                 if (worker != null)
                 {
                     CurrentUser.Worker = worker;
@@ -34,7 +34,7 @@ namespace Hospital.Views
                     ErrorLabel.Content = "Неправильный код";
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 Label ErrorLabel = this.Find<Label>("ErrorLabel")!;
                 ErrorLabel.IsVisible = true;
