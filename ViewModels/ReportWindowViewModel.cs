@@ -59,8 +59,7 @@ namespace Hospital.ViewModels
                 Array.Sort(range);
                 Report report = new(range);
                 report.GetReportData();
-                await report.CreateReport(ReportWindow);
-                Message = "Отчет готов";
+                Message = await report.CreateReport(ReportWindow);
             }
             catch
             {
