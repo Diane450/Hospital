@@ -24,7 +24,7 @@
 			<Button Content="Создать отчет" Command="{Binding CreateReport}"/>
 			<Image Source="/Assets/information.png" Height="20" HorizontalAlignment="Left" Margin="10 0 0 0">
 				<ToolTip.Tip>
-					<TextBlock FontSize="14" Text="При нажатии на кнопку сгенерируется отчет, где будут указана статистика выдачи и приема лекарств за указанный период. Файл сохранится на Вашем рабочем столе."/>
+					<TextBlock FontSize="14" Text="При нажатии на кнопку сгенерируется отчет, где будут указана статистика выдачи и приема лекарств за указанный период"/>
 				</ToolTip.Tip>
 			</Image>
 		</StackPanel>

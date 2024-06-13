@@ -18,7 +18,7 @@
 			<Button Content="Выдать" Margin="5 0" Command="{Binding Remove}" IsEnabled="{Binding IsRemovingEnabled}"/>
 			<Image Source="/Assets/information.png" Height="20" HorizontalAlignment="Left" Margin="10 0 0 0">
 				<ToolTip.Tip>
-					<TextBlock FontSize="14" Text="Кнопка выдать недоступна в случае, если количество препарата меньше/равно нулю"/>
+					<TextBlock FontSize="14" Text="Кнопка выдать недоступна в случае, если количество препарата равно нулю"/>
 				</ToolTip.Tip>
 			</Image>
 		</StackPanel>

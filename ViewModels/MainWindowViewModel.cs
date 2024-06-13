@@ -33,14 +33,14 @@ namespace Hospital.ViewModels
             set { _selectedDrug = this.RaiseAndSetIfChanged(ref _selectedDrug, value); }
         }
 
-        public List<Manufacturer> Manufacturers { get; set; } = new List<Manufacturer>()
-        {
+        public List<Manufacturer> Manufacturers { get; set; } =
+        [
             new Manufacturer()
             {
                 Id = 0,
                 Name = "Все"
             }
-        };
+        ];
 
         private Manufacturer _selectedManufacturer = null!;
 
@@ -50,14 +50,14 @@ namespace Hospital.ViewModels
             set { _selectedManufacturer = this.RaiseAndSetIfChanged(ref _selectedManufacturer, value); Filter(); }
         }
 
-        public List<DrugProvider> DrugProviders { get; set; } = new List<DrugProvider>
-        {
-            new DrugProvider()
+        public List<DrugProvider> DrugProviders { get; set; } =
+        [
+            new()
             {
                 Id = 0,
                 Name= "Все"
             }
-        };
+        ];
 
         private DrugProvider _selectedDrugProvider = null!;
 
@@ -67,7 +67,7 @@ namespace Hospital.ViewModels
             set { _selectedDrugProvider = this.RaiseAndSetIfChanged(ref _selectedDrugProvider, value); Filter(); }
         }
 
-        public List<DrugType> Types { get; set; } = new List<DrugType> { new DrugType() { Id = 0, Name = "Все" } };
+        public List<DrugType> Types { get; set; } = [new DrugType() { Id = 0, Name = "Все" }];
 
         private DrugType _selectedType = null!;
 
@@ -151,13 +151,13 @@ namespace Hospital.ViewModels
             FilteredDrugs = new ObservableCollection<DrugDTO>(Drugs);
             SelectedDrug = FilteredDrugs[0];
 
-            SortValues = new List<string>
-            {
+            SortValues =
+            [
                 "от А до Я",
                 "от Я до А",
                 "количество: от меньшего к большему",
                 "количество: от большего к меньшему",
-            };
+            ];
 
             Manufacturers.AddRange(DBCall.GetManufacturers());
             SelectedManufacturer = Manufacturers[0];
@@ -210,19 +210,19 @@ namespace Hospital.ViewModels
         {
             if (SelectedSortValue == SortValues[0])
             {
-                FilteredDrugs = new ObservableCollection<DrugDTO>(FilteredDrugs.OrderBy(d => d.Name).ToList());
+                FilteredDrugs = new ObservableCollection<DrugDTO>([.. FilteredDrugs.OrderBy(d => d.Name)]);
             }
             else if (SelectedSortValue == SortValues[1])
             {
-                FilteredDrugs = new ObservableCollection<DrugDTO>(FilteredDrugs.OrderByDescending(d => d.Name).ToList());
+                FilteredDrugs = new ObservableCollection<DrugDTO>([.. FilteredDrugs.OrderByDescending(d => d.Name)]);
             }
             else if (SelectedSortValue == SortValues[2])
             {
-                FilteredDrugs = new ObservableCollection<DrugDTO>(FilteredDrugs.OrderBy(d => d.Count).ToList());
+                FilteredDrugs = new ObservableCollection<DrugDTO>([.. FilteredDrugs.OrderBy(d => d.Count)]);
             }
             else
             {
-                FilteredDrugs = new ObservableCollection<DrugDTO>(FilteredDrugs.OrderByDescending(d => d.Count).ToList());
+                FilteredDrugs = new ObservableCollection<DrugDTO>([.. FilteredDrugs.OrderByDescending(d => d.Count)]);
             }
             SelectedDrug = FilteredDrugs[0];
         }

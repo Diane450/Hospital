@@ -73,7 +73,7 @@
 		</Grid>
 
 		<Grid ColumnDefinitions="200, 300, 1600" Height="750" MinHeight="560" HorizontalAlignment="Left" MaxWidth="1040">
-			<ListBox ItemsSource="{Binding FilteredDrugs}" SelectedItem="{Binding SelectedDrug}" SelectionMode="Single" Width="200" Grid.Column="0" HorizontalAlignment="Left">
+			<ListBox ItemsSource="{Binding FilteredDrugs}" SelectedItem="{Binding SelectedDrug}" SelectionMode="Single" Width="200" MaxHeight="700" VerticalAlignment="Top" Grid.Column="0" HorizontalAlignment="Left">
 				<ListBox.ItemTemplate>
 					<DataTemplate>
 						<TextBlock Text="{Binding Name}"/>

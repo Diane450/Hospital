@@ -9,11 +9,11 @@ using System.Threading.Tasks;
 
 namespace Hospital.ViewModels
 {
-    public class DeleteDrugWindowViewModel : ViewModelBase
+    public class DeleteDrugWindowViewModel(MainWindowViewModel model, DrugDTO drug) : ViewModelBase
     {
-        public MainWindowViewModel Model { get; set; }
+        public MainWindowViewModel Model { get; set; } = model;
 
-        public DrugDTO Drug { get; set; }
+        public DrugDTO Drug { get; set; } = drug;
 
 
         private string _message = null!;
@@ -30,13 +30,6 @@ namespace Hospital.ViewModels
         {
             get { return _isButtonEnable; }
             set { _isButtonEnable = this.RaiseAndSetIfChanged(ref _isButtonEnable, value); }
-        }
-
-
-        public DeleteDrugWindowViewModel(MainWindowViewModel model, DrugDTO drug)
-        {
-            Model = model;
-            Drug = drug;
         }
 
         public void Delete()
